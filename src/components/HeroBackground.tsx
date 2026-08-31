@@ -20,6 +20,20 @@ export default function HeroBackground() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoReady, setVideoReady] = useState(false);
 
+  // React doesn't reliably render the `muted` attribute into the
+  // server-rendered HTML for <video>, so the browser can decide to block
+  // autoplay before hydration sets it. Setting the property directly and
+  // calling play() explicitly avoids that.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = true;
+    video.play().catch(() => {
+      // Autoplay can still be blocked (e.g. low-power mode) — that's fine,
+      // the poster frame / first loaded frame still shows behind the scrim.
+    });
+  }, []);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
