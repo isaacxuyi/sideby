@@ -1,0 +1,41 @@
+:root {
+  --amber-1: #1f1610;
+  --amber-2: #5c3a21;
+  --amber-3: #e08b38;
+  --cream: #fbf7f0;
+  --green: #10b981;
+  --dark: #0b0806;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--dark);
+  color: #fff;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+}
+
+/* Shared shell for content pages (about, how-it-works, privacy, terms) */
+.pageShell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

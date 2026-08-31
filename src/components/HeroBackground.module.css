@@ -1,0 +1,39 @@
+.bokehCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -3;
+}
+
+.bgVideo {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.bgVideoReady {
+  opacity: 0.85;
+}
+
+.siteScrim {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+      to top,
+      rgba(11, 8, 6, 0.92) 0%,
+      rgba(11, 8, 6, 0.35) 45%,
+      rgba(11, 8, 6, 0.5) 100%
+    ),
+    radial-gradient(
+      ellipse 60% 65% at 50% 30%,
+      rgba(30, 16, 8, 0.05),
+      rgba(11, 8, 6, 0.7) 85%
+    );
+}
