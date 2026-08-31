@@ -1,8 +1,6 @@
 "use client";
-
 import { useEffect, useRef, useState } from "react";
 import styles from "./HeroBackground.module.css";
-
 type Orb = {
   x: number;
   y: number;
@@ -12,14 +10,11 @@ type Orb = {
   color: string;
   alpha: number;
 };
-
 const PALETTE = ["#3d2112", "#7a451e", "#c87932", "#452613", "#1e1108"];
-
 export default function HeroBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoReady, setVideoReady] = useState(false);
-
   // React doesn't reliably render the `muted` attribute into the
   // server-rendered HTML for <video>, so the browser can decide to block
   // autoplay before hydration sets it. Setting the property directly and
@@ -33,21 +28,17 @@ export default function HeroBackground() {
       // the poster frame / first loaded frame still shows behind the scrim.
     });
   }, []);
-
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-
     let w = 0;
     let h = 0;
     let orbs: Orb[] = [];
     let animationFrame = 0;
-
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
     function resize() {
       if (!canvas) return;
       const rect = canvas.getBoundingClientRect();
@@ -66,7 +57,6 @@ export default function HeroBackground() {
         alpha: 0.3 + Math.random() * 0.35,
       }));
     }
-
     function draw() {
       if (!ctx) return;
       ctx.fillStyle = "#0f0a07";
@@ -92,17 +82,14 @@ export default function HeroBackground() {
       ctx.globalAlpha = 1;
       animationFrame = requestAnimationFrame(draw);
     }
-
     resize();
     window.addEventListener("resize", resize);
     draw();
-
     return () => {
       window.removeEventListener("resize", resize);
       cancelAnimationFrame(animationFrame);
     };
   }, []);
-
   return (
     <>
       <canvas ref={canvasRef} id="bokeh-canvas" className={styles.bokehCanvas} />
