@@ -23,6 +23,12 @@ export default function HeroBackground() {
     const video = videoRef.current;
     if (!video) return;
     video.muted = true;
+    // If the video already has enough data by the time this effect runs,
+    // the `loadeddata` event already fired and onLoadedData below missed it —
+    // check readyState directly as a fallback.
+    if (video.readyState >= 2) {
+      setVideoReady(true);
+    }
     video.play().catch(() => {
       // Autoplay can still be blocked (e.g. low-power mode) — that's fine,
       // the poster frame / first loaded frame still shows behind the scrim.
