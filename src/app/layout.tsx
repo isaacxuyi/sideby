@@ -9,9 +9,35 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "sideby — Side by Better Together",
+  metadataBase: new URL("https://www.sideby.org"),
+  title: {
+    default: "sideby — Side by Better Together",
+    template: "%s — sideby",
+  },
   description:
     "Side by better together. Split the price tag without compromising on what matters most.",
+  keywords: ["split expenses", "cost splitting", "group hangouts", "activity coordination", "sideby"],
+  openGraph: {
+    title: "sideby — Side by Better Together",
+    description:
+      "Side by better together. Split the price tag without compromising on what matters most.",
+    url: "https://www.sideby.org",
+    siteName: "sideby",
+    images: [{ url: "/icon-512.png", width: 512, height: 512 }],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "sideby — Side by Better Together",
+    description:
+      "Side by better together. Split the price tag without compromising on what matters most.",
+    images: ["/icon-512.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   icons: {
     icon: [
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
