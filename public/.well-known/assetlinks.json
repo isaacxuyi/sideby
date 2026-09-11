@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "org.sideby",
+      "sha256_cert_fingerprints": [
+        "35:E4:21:82:AF:C6:7B:F0:CC:ED:3C:FE:C9:39:27:34:8A:AE:CB:41:F9:29:12:C6:85:C9:75:89:74:D3:34:79"
+      ]
+    }
+  }
+]
