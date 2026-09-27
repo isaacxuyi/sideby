@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import HeroBackground from "@/components/HeroBackground";
@@ -22,10 +23,10 @@ export default function HomePage() {
             </div>
 
             <div className={styles.heroCta}>
-              <a href="#" className={styles.startBtn}>
+              <Link href="/join" className={styles.startBtn}>
                 <span className={styles.startDot} />
                 Join Sideby
-              </a>
+              </Link>
               <p>
                 Side by better together.
                 <br />

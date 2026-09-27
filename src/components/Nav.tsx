@@ -13,12 +13,12 @@ export default function Nav({ variant = "simple" }: NavProps) {
           sideby
         </Link>
         <div className={styles.navActions}>
-          <a href="#" className={styles.btnGhost}>
+          <Link href="/login" className={styles.btnGhost}>
             Log in
-          </a>
-          <a href="#" className={styles.btnWhite}>
+          </Link>
+          <Link href="/join" className={styles.btnWhite}>
             Join sideby
-          </a>
+          </Link>
         </div>
       </nav>
     );
