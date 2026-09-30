@@ -36,11 +36,18 @@ export function OpenInApp({ splitId }: { splitId: string }) {
   }, [splitId]);
 
   const storeUrl = platform === "ios" ? APP_STORE_URL : PLAY_STORE_URL;
+  const joinUrl =
+    platform === "android"
+      ? `intent://sideby.org/split/${encodeURIComponent(splitId)}#Intent;scheme=https;package=org.sideby;S.browser_fallback_url=${encodeURIComponent(PLAY_STORE_URL)};end`
+      : `https://sideby.org/split/${encodeURIComponent(splitId)}`;
 
   return (
     <div className={styles.actions}>
       <a className={styles.primaryButton} href={storeUrl}>
         {platform === "ios" ? "Get sideby on the App Store" : "Get sideby on Google Play"}
+      </a>
+      <a className={styles.joinButton} href={joinUrl}>
+        Join my split
       </a>
       {platform === "other" && (
         <div className={styles.storeRow}>
