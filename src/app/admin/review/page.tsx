@@ -1,5 +1,7 @@
 import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
 import ReviewQueue from "./ReviewQueue";
 
 export const metadata = { title: "Review queue", robots: { index: false, follow: false } };
@@ -17,5 +19,11 @@ export default async function AdminReviewPage() {
   const { error } = await supabase.rpc("admin_moderation_sla_stats");
   if (error) notFound();
 
-  return <ReviewQueue />;
+  return (
+    <div className="pageShell">
+      <Nav />
+      <ReviewQueue />
+      <Footer />
+    </div>
+  );
 }

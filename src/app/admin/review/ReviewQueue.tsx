@@ -60,11 +60,18 @@ const hours = (h: number | null) =>
 function SlaStrip({ stats, error, onRetry }: { stats: SlaStats | null; error: boolean; onRetry: () => void }) {
   if (error)
     return (
-      <button className={styles.link} onClick={onRetry}>
+      <button type="button" className={styles.link} onClick={onRetry}>
         Couldn&apos;t load SLA stats — click to retry
       </button>
     );
-  if (!stats) return <div className={styles.slaStrip} />;
+  if (!stats)
+    return (
+      <div className={styles.slaStrip} aria-busy="true">
+        {Array.from({ length: 5 }, (_, i) => (
+          <div key={i} className={`${styles.skeleton} ${styles.skelStat}`} />
+        ))}
+      </div>
+    );
   const hit = stats.slaHitRate7d;
   const cell = (v: string, l: string, color?: string) => (
     <div className={styles.stat}>
@@ -121,15 +128,29 @@ function ListState<T>({
 }) {
   if (list.error)
     return (
-      <div className={styles.state}>
+      <div className={styles.state} role="alert">
+        <span className={`${styles.stateIcon} ${styles.stateIconErr}`} aria-hidden="true">!</span>
         <p>{errorText}</p>
-        <button className={`${styles.btn} ${styles.neutral}`} onClick={list.reload}>
+        <button type="button" className={`${styles.btn} ${styles.neutral}`} onClick={list.reload}>
           Retry
         </button>
       </div>
     );
-  if (!list.items) return <div className={styles.state}>Loading…</div>;
-  if (!list.items.length) return <div className={styles.state}>{empty}</div>;
+  if (!list.items)
+    return (
+      <div className={styles.list} aria-busy="true" aria-label="Loading">
+        {[0, 1, 2].map((i) => (
+          <div key={i} className={`${styles.skeleton} ${styles.skelCard}`} />
+        ))}
+      </div>
+    );
+  if (!list.items.length)
+    return (
+      <div className={styles.state}>
+        <span className={styles.stateIcon} aria-hidden="true">✓</span>
+        <p>{empty}</p>
+      </div>
+    );
   return <div className={styles.list}>{children(list.items)}</div>;
 }
 
@@ -171,8 +192,8 @@ function FlaggedTab({ toast, onChanged }: Props) {
               <div className={styles.row}>{i.categories.map((c) => <Badge key={c} tone="grey">{c}</Badge>)}</div>
             )}
             <div className={styles.actions}>
-              <button className={`${styles.btn} ${styles.green}`} onClick={() => act(i, "dismiss")}>Dismiss</button>
-              <button className={`${styles.btn} ${styles.redBtn}`} onClick={() => act(i, "uphold")}>Uphold</button>
+              <button type="button" className={`${styles.btn} ${styles.green}`} onClick={() => act(i, "dismiss")}>Dismiss</button>
+              <button type="button" className={`${styles.btn} ${styles.redBtn}`} onClick={() => act(i, "uphold")}>Uphold</button>
             </div>
           </article>
         ))
@@ -221,12 +242,13 @@ function ReportsTab({ toast, onChanged }: Props) {
             <p className={styles.author}>{r.reason}</p>
             {r.details?.trim() && <p className={styles.body}>{r.details}</p>}
             {r.targetPreview && <blockquote className={styles.quote}>{r.targetPreview}</blockquote>}
-            <p className={styles.muted}>
-              {names[r.reportedUserId] || r.targetAuthorName || "Unknown"} reported by {names[r.reporterId] || "Unknown"}
+            <p className={styles.byline}>
+              <strong>{names[r.reportedUserId] || r.targetAuthorName || "Unknown"}</strong> reported by{" "}
+              <strong>{names[r.reporterId] || "Unknown"}</strong>
             </p>
             <div className={styles.actions}>
-              <button className={`${styles.btn} ${styles.green}`} onClick={() => act(r, "dismiss")}>Dismiss</button>
-              <button className={`${styles.btn} ${styles.redBtn}`} onClick={() => act(r, "uphold")}>Uphold</button>
+              <button type="button" className={`${styles.btn} ${styles.green}`} onClick={() => act(r, "dismiss")}>Dismiss</button>
+              <button type="button" className={`${styles.btn} ${styles.redBtn}`} onClick={() => act(r, "uphold")}>Uphold</button>
             </div>
           </article>
         ))
@@ -240,7 +262,7 @@ function AppealModal({ item, grant, onClose, onSubmit }: { item: AppealItem; gra
   const noun = item.targetType === "forum_comment" ? "comment" : item.targetType === "split" ? "split" : "post";
   return (
     <div className={styles.overlay} onClick={onClose}>
-      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+      <div className={styles.modal} role="dialog" aria-modal="true" onClick={(e) => e.stopPropagation()}>
         <h3>{grant ? "Grant this appeal" : "Deny this appeal"}</h3>
         <p className={styles.muted}>
           {grant
@@ -258,8 +280,8 @@ function AppealModal({ item, grant, onClose, onSubmit }: { item: AppealItem; gra
           />
         )}
         <div className={styles.actions}>
-          <button className={`${styles.btn} ${styles.neutral}`} onClick={onClose}>Cancel</button>
-          <button className={`${styles.btn} ${grant ? styles.green : styles.redBtn}`} onClick={() => onSubmit(note)}>
+          <button type="button" className={`${styles.btn} ${styles.neutral}`} onClick={onClose}>Cancel</button>
+          <button type="button" className={`${styles.btn} ${grant ? styles.green : styles.redBtn}`} onClick={() => onSubmit(note)}>
             {grant ? "Grant appeal" : "Deny appeal"}
           </button>
         </div>
@@ -302,17 +324,17 @@ function AppealsTab({ toast, onChanged }: Props) {
               <p className={styles.body}>{a.message}</p>
               {a.contentSnapshot && (
                 <>
-                  <p className={styles.muted}>Removed content</p>
+                  <p className={styles.label}>Removed content</p>
                   <blockquote className={styles.quote}>{a.contentSnapshot}</blockquote>
                 </>
               )}
               {a.categories.length > 0 && (
                 <div className={styles.row}>{a.categories.map((c) => <Badge key={c} tone="grey">{c}</Badge>)}</div>
               )}
-              {a.issuedBy && names[a.issuedBy] && <p className={styles.muted}>Original decision by {names[a.issuedBy]}</p>}
+              {a.issuedBy && names[a.issuedBy] && <p className={styles.byline}>Original decision by <strong>{names[a.issuedBy]}</strong></p>}
               <div className={styles.actions}>
-                <button className={`${styles.btn} ${styles.redBtn}`} onClick={() => setModal({ item: a, grant: false })}>Deny</button>
-                <button className={`${styles.btn} ${styles.green}`} onClick={() => setModal({ item: a, grant: true })}>Grant</button>
+                <button type="button" className={`${styles.btn} ${styles.redBtn}`} onClick={() => setModal({ item: a, grant: false })}>Deny</button>
+                <button type="button" className={`${styles.btn} ${styles.green}`} onClick={() => setModal({ item: a, grant: true })}>Grant</button>
               </div>
             </article>
           ))
@@ -343,11 +365,24 @@ export default function ReviewQueue() {
 
   return (
     <main className={styles.page}>
-      <h1>Review queue</h1>
+      <header className={styles.header}>
+        <span className={styles.eyebrow}>Admin</span>
+        <h1>Review queue</h1>
+        <p className={styles.lead}>
+          Flagged content, user reports and appeals. Everything open is measured against a 24-hour response target.
+        </p>
+      </header>
       <SlaStrip stats={stats} error={statsError} onRetry={refreshStats} />
-      <nav className={styles.tabs}>
+      <nav className={styles.tabs} role="tablist" aria-label="Queue">
         {(["flagged", "reports", "appeals"] as Tab[]).map((t) => (
-          <button key={t} className={tab === t ? styles.tabOn : ""} onClick={() => setTab(t)}>
+          <button
+            key={t}
+            type="button"
+            role="tab"
+            aria-selected={tab === t}
+            className={tab === t ? styles.tabOn : ""}
+            onClick={() => setTab(t)}
+          >
             {t[0].toUpperCase() + t.slice(1)}
           </button>
         ))}
@@ -355,7 +390,11 @@ export default function ReviewQueue() {
       {tab === "flagged" && <FlaggedTab {...props} />}
       {tab === "reports" && <ReportsTab {...props} />}
       {tab === "appeals" && <AppealsTab {...props} />}
-      {toastMsg && <div className={styles.toast}>{toastMsg}</div>}
+      {toastMsg && (
+        <div className={styles.toast} role="status">
+          {toastMsg}
+        </div>
+      )}
     </main>
   );
 }
