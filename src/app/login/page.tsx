@@ -43,7 +43,7 @@ export default function LoginPage() {
       return;
     }
 
-    router.push("/welcome");
+    router.push(window.location.hostname.startsWith("admin.") ? "/" : "/welcome");
     router.refresh();
   }
 
