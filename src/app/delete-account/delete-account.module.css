@@ -1,0 +1,98 @@
+.altMethods {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: stretch;
+}
+
+.secondaryBtn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  padding: 13px 24px;
+  border-radius: 100px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.secondaryBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.linkBtn {
+  background: none;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: 6px;
+}
+
+.linkBtn:hover:not(:disabled) {
+  color: #fff;
+}
+
+.linkBtn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.warning {
+  border: 1px solid rgba(224, 139, 139, 0.35);
+  background: rgba(224, 139, 139, 0.08);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 28px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.warningTitle {
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.warning ul {
+  margin-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dangerBtn {
+  margin-top: 4px;
+  background: #c0392b;
+  color: #fff;
+  padding: 14px 24px;
+  border-radius: 100px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+.dangerBtn:hover:not(:disabled) {
+  background: #a93226;
+}
+
+.dangerBtn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.message {
+  margin-top: 20px;
+}
+
+.notice {
+  font-size: 14px;
+  color: var(--green);
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
