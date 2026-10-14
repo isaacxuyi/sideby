@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import styles from "../legal.module.css";
@@ -168,8 +169,11 @@ export default function PrivacyPage() {
           <li>
             <strong>Download or delete your data:</strong> In Security &amp;
             Privacy you can download a copy of your data or permanently
-            delete your account. Some financial transaction records may be
-            retained as described in Section 4.
+            delete your account. You can also delete your account from the
+            web without the app at{" "}
+            <Link href="/delete-account">sideby.org/delete-account</Link>.
+            Some financial transaction records may be retained as described
+            in Section 4.
           </li>
         </ul>
 

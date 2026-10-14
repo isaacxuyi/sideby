@@ -10,7 +10,6 @@ const FOOTER_LINKS = [
   { href: "/how-it-works", label: "How It Works" },
   { href: "/privacy", label: "Privacy" },
   { href: "/terms", label: "Terms" },
-  { href: "/delete-account", label: "Delete Account" },
 ];
 
 export default function Footer({ variant = "simple" }: FooterProps) {
