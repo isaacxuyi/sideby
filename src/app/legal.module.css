@@ -81,3 +81,16 @@
     padding: 50px 20px;
   }
 }
+
+/* Links inside legal copy: globals.css strips link styling, so restore it. */
+.container p a,
+.container li a {
+  color: var(--amber-3);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.container p a:hover,
+.container li a:hover {
+  color: #fff;
+}
