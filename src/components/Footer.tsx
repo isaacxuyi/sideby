@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styles from "./Footer.module.css";
+import CookieSettingsButton from "./CookieSettingsButton";
 
 type FooterProps = {
   variant?: "full" | "simple";
@@ -54,6 +55,7 @@ export default function Footer({ variant = "simple" }: FooterProps) {
               {link.label}
             </Link>
           ))}
+          <CookieSettingsButton className={styles.cookieBtn} />
         </div>
       </footer>
     );
@@ -67,6 +69,7 @@ export default function Footer({ variant = "simple" }: FooterProps) {
             {link.label}
           </Link>
         ))}
+        <CookieSettingsButton className={styles.cookieBtn} />
       </div>
     </footer>
   );

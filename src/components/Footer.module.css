@@ -101,3 +101,14 @@
     padding: 40px 24px;
   }
 }
+
+.cookieBtn {
+  background: none;
+  color: inherit;
+  font-size: inherit;
+  padding: 0;
+}
+
+.cookieBtn:hover {
+  color: #fff;
+}

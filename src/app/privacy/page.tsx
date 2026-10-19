@@ -163,6 +163,13 @@ export default function PrivacyPage() {
             identifier on your device.
           </li>
           <li>
+            <strong>Cookies on the website:</strong> We use essential cookies
+            to keep you signed in and secure. Optional cookies are only used
+            if you choose &ldquo;Accept all&rdquo; in the cookie banner. Your
+            choice is stored on your device and you can clear it in your
+            browser settings to be asked again.
+          </li>
+          <li>
             <strong>No ads, no sale:</strong> Sideby does not run
             advertising trackers and does not sell analytics data.
           </li>
