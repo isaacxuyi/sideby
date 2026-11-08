@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["BR8CA9H7PH.org.sideby.app"],
+        "components": [
+          { "/": "/split/*" },
+          { "/": "/u/*" }
+        ]
+      }
+    ]
+  }
+}
