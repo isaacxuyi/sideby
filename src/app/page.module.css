@@ -107,14 +107,3 @@
     width: 100%;
   }
 }
-
-.heroCta .activeUsers {
-  font-size: 14px;
-  color: #eae3d8;
-  opacity: 1;
-}
-
-.activeUsers strong {
-  color: #fff;
-  font-weight: 700;
-}

@@ -2,12 +2,10 @@ import Link from "next/link";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import HeroBackground from "@/components/HeroBackground";
-import { getActiveUserCount } from "@/lib/activeUsers";
+import ActiveUsersBadge from "@/components/ActiveUsersBadge";
 import styles from "./page.module.css";
 
-export default async function HomePage() {
-  const activeUsers = await getActiveUserCount();
-
+export default function HomePage() {
   return (
     <>
       <HeroBackground />
@@ -30,12 +28,7 @@ export default async function HomePage() {
                 <span className={styles.startDot} />
                 Join Sideby
               </Link>
-              {activeUsers !== null && (
-                <p className={styles.activeUsers}>
-                  <strong>{activeUsers.toLocaleString("en-US")}</strong> active
-                  users
-                </p>
-              )}
+              <ActiveUsersBadge />
               <p>
                 Side by better together.
                 <br />

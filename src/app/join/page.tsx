@@ -4,6 +4,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import ActiveUsersBadge from "@/components/ActiveUsersBadge";
 import { createClient } from "@/lib/supabase/client";
 import { normalizeUsername, MIN_USERNAME_LENGTH } from "@/lib/username";
 import styles from "../auth-form.module.css";
@@ -124,6 +125,7 @@ export default function JoinPage() {
     <div className="pageShell">
       <Nav />
       <main className={styles.container}>
+        <ActiveUsersBadge className={styles.badgeSpacing} />
         <h1>Reserve your spot</h1>
         <p className={styles.lead}>
           iOS is coming soon. Create your account now, claim your username,
